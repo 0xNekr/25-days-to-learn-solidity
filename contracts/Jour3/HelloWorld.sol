@@ -7,6 +7,6 @@ contract HelloWorld {
 
     // Créez une fonction qui renvoie "Hello World !" lorsque vous appelez la fonction
     function helloWorld() public pure returns (string memory) {
-        // CODE HERE
+        return "Hello World !";
     }
 }
