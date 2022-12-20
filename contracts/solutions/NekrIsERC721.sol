@@ -46,6 +46,10 @@ contract NekrIsERC721 is ERC721, Ownable {
         merkleRoot = _merkleRoot;
     }
 
+    function totalSupply() public view returns (uint) {
+        return _tokenIds.current();
+    }
+
     function mint(uint _count,  bytes32[] calldata _proof) external payable {
         require(currentStep == Step.WhitelistSale || currentStep == Step.PublicSale, "The sale is not open or closed ");
         uint current_price = getCurrentPrice();
