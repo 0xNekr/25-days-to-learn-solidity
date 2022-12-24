@@ -1,6 +1,6 @@
 const { ethers } = require("hardhat");
 
-async function main() {
+async function HelloWorldDeploy() {
     // COMMANDE À LANCER : yarn hardhat run .\scripts\HelloWorld.deploy.ts --network polygonMumbai
 
     // On récupère le contrat via son nom
@@ -15,4 +15,4 @@ async function main() {
     console.log("hardhat verify --network polygonMumbai", Contract.address); // verify the contract
 }
 
-main().then();
+HelloWorldDeploy().then();
