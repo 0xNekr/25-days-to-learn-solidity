@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.17;
+pragma solidity ^0.8.23;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -40,6 +40,7 @@ contract NekrIsERC721_Jour13 is ERC721, Ownable {
     event stepUpdated(Step currentStep);
 
     constructor(string memory _baseTokenURI, bytes32 _merkleRoot) ERC721("Calendar Collection", "CALCO") {
+        Ownable(msg.sender);
         baseTokenURI = _baseTokenURI;
         merkleRoot = _merkleRoot;
     }

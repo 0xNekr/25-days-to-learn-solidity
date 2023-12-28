@@ -1,11 +1,13 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.17;
+pragma solidity ^0.8.23;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract Day4Solution is Ownable {
 
-    constructor() {}
+    constructor() {
+        Ownable(msg.sender);
+    }
 
     function retournerLeNumeroDuJour() public pure returns (uint) {
         return 4;

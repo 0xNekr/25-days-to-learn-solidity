@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.17;
+pragma solidity ^0.8.23;
 
 import "./NekrIsERC721.sol";
 import "./NekrTokenIsERC20.sol";

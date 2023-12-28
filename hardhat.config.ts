@@ -1,13 +1,11 @@
 import * as dotenv from "dotenv";
-import { HardhatUserConfig } from "hardhat/config";
-import "@nomiclabs/hardhat-ethers";
-import "@nomiclabs/hardhat-etherscan";
+import {HardhatUserConfig} from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
 
 dotenv.config();
 
 const config: HardhatUserConfig = {
-  solidity: "0.8.17",
+  solidity: "0.8.23",
   networks: {
     polygonMumbai: {
       url: process.env.MUMBAI_URL!,

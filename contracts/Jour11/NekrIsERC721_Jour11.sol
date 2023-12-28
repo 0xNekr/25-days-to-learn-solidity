@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.17;
+pragma solidity ^0.8.23;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -36,6 +36,8 @@ contract NekrIsERC721_Jour11 is ERC721, Ownable {
 
     string public baseTokenURI;
 
-    constructor() ERC721("", ""){}
+    constructor() ERC721("", "") {
+        Ownable(msg.sender);
+    }
 
 }
