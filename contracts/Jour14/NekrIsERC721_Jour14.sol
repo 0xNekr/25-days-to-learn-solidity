@@ -3,17 +3,15 @@ pragma solidity ^0.8.23;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 
 
 contract NekrIsERC721_Jour14 is ERC721, Ownable {
 
-    using Counters for Counters.Counter;
     using Strings for uint;
 
-    Counters.Counter private _tokenIds;
+    uint256 private _tokenIds;
 
     enum Step {
         SaleNotStarted,
@@ -41,8 +39,10 @@ contract NekrIsERC721_Jour14 is ERC721, Ownable {
     event newMint(address indexed sender, uint256 amount);
     event stepUpdated(Step currentStep);
 
-    constructor(string memory _baseTokenURI, bytes32 _merkleRoot) ERC721("Calendar Collection", "CALCO") {
-        Ownable(msg.sender);
+    constructor(string memory _baseTokenURI, bytes32 _merkleRoot)
+    ERC721("Calendar Collection", "CALCO")
+    Ownable(msg.sender)
+    {
         baseTokenURI = _baseTokenURI;
         merkleRoot = _merkleRoot;
     }
@@ -57,7 +57,7 @@ contract NekrIsERC721_Jour14 is ERC721, Ownable {
     }
 
     function tokenURI(uint256 _tokenId) public view virtual override returns (string memory) {
-        require(_exists(_tokenId),"ERC721Metadata: URI query for nonexistent token");
+        _requireOwned(_tokenId);
         return string(abi.encodePacked(baseTokenURI, _tokenId.toString()));
     }
 

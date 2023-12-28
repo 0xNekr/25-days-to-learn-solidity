@@ -9,8 +9,7 @@ contract NekrTokenIsERC20 is ERC20, Ownable {
     mapping(address => bool) admins;
     uint256 public maxSupply = 1000000000 * 10**18;
 
-    constructor() ERC20("Nekr Token", "NKTK") {
-        Ownable(msg.sender);
+    constructor() ERC20("Nekr Token", "NKTK") Ownable(msg.sender) {
         admins[msg.sender] = true;
     }
 

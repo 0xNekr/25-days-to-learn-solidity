@@ -3,7 +3,7 @@
     "@chainlink/contracts": "^0.4.1",
     "@nomicfoundation/hardhat-chai-matchers": "^1.0.4",
     "@nomicfoundation/hardhat-toolbox": "^2.0.0",
-    "@openzeppelin/contracts": "^4.6.0",
+    "@openzeppelin/contracts": "^5.0.1",
     "hardhat": "^2.9.9",
     "hardhat-deploy-ethers": "^0.3.0-beta.13",
     "keccak": "^3.0.2",

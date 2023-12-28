@@ -5,8 +5,8 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract Day4Solution is Ownable {
 
-    constructor() {
-        Ownable(msg.sender);
+    constructor() Ownable(msg.sender) {
+
     }
 
     function retournerLeNumeroDuJour() public pure returns (uint) {

@@ -3,17 +3,15 @@ pragma solidity ^0.8.23;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 
 
 contract NekrIsERC721 is ERC721, Ownable {
 
-    using Counters for Counters.Counter;
     using Strings for uint;
 
-    Counters.Counter private _tokenIds;
+    uint256 private _tokenIds;
 
     enum Step {
         SaleNotStarted,
@@ -41,20 +39,22 @@ contract NekrIsERC721 is ERC721, Ownable {
     event newMint(address indexed sender, uint256 amount);
     event stepUpdated(Step currentStep);
 
-    constructor(string memory _baseTokenURI, bytes32 _merkleRoot) ERC721("Calendar Collection", "CALCO") {
-        Ownable(msg.sender);
+    constructor(string memory _baseTokenURI, bytes32 _merkleRoot)
+    ERC721("Calendar Collection", "CALCO")
+    Ownable(msg.sender)
+    {
         baseTokenURI = _baseTokenURI;
         merkleRoot = _merkleRoot;
     }
 
     function totalSupply() public view returns (uint) {
-        return _tokenIds.current();
+        return _tokenIds;
     }
 
     function mint(uint _count,  bytes32[] calldata _proof) external payable {
         require(currentStep == Step.WhitelistSale || currentStep == Step.PublicSale, "The sale is not open or closed ");
         uint current_price = getCurrentPrice();
-        uint totalMinted = _tokenIds.current();
+        uint totalMinted = _tokenIds;
 
         if (currentStep == Step.WhitelistSale) {
             require(isWhitelisted(msg.sender, _proof), "Not whitelisted");
@@ -66,9 +66,9 @@ contract NekrIsERC721 is ERC721, Ownable {
         require(msg.value >= current_price * _count, "Not enough funds to purchase.");
 
         for (uint i = 0; i < _count; i++) {
-            uint newTokenID = _tokenIds.current();
+            uint newTokenID = _tokenIds;
             _mint(msg.sender, newTokenID);
-            _tokenIds.increment();
+            _tokenIds += 1;
         }
 
         emit newMint(msg.sender, _count);
@@ -84,7 +84,7 @@ contract NekrIsERC721 is ERC721, Ownable {
     }
 
     function tokenURI(uint256 _tokenId) public view virtual override returns (string memory) {
-        require(_exists(_tokenId),"ERC721Metadata: URI query for nonexistent token");
+        _requireOwned(_tokenId);
         return string(abi.encodePacked(baseTokenURI, _tokenId.toString()));
     }
 
